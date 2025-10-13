@@ -55,6 +55,10 @@ All colors MUST be HSL.
     --gradient-hero: linear-gradient(135deg, hsl(331 85% 52%), hsl(217 73% 57%));
     --gradient-purple: linear-gradient(135deg, hsl(266 68% 38%), hsl(266 68% 48%));
     --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 99%));
+    --gradient-magenta: linear-gradient(135deg, hsl(331 85% 52%), hsl(331 85% 47%));
+    --gradient-deep-purple: linear-gradient(135deg, hsl(266 68% 38%), hsl(266 68% 33%));
+    --gradient-gomo-blue: linear-gradient(135deg, hsl(217 73% 57%), hsl(217 73% 52%));
+    --gradient-magenta-purple: linear-gradient(135deg, hsl(331 85% 52%), hsl(266 68% 38%));
     
     /* Shadows */
     --shadow-card: 0 1px 3px hsl(0 0% 0% / 0.06);
@@ -123,6 +127,26 @@ All colors MUST be HSL.
   
   .gradient-card {
     background: var(--gradient-card);
+  }
+  
+  .gradient-magenta {
+    background: var(--gradient-magenta);
+  }
+  
+  .gradient-deep-purple {
+    background: var(--gradient-deep-purple);
+  }
+  
+  .gradient-gomo-blue {
+    background: var(--gradient-gomo-blue);
+  }
+  
+  .gradient-magenta-purple {
+    background: var(--gradient-magenta-purple);
+  }
+  
+  .bg-gomo-dark {
+    background-color: hsl(var(--gomo-dark));
   }
   
   .shadow-card {

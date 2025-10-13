@@ -31,9 +31,9 @@ export function HomePage() {
   const greeting = currentHour < 12 ? "Good Morning" : currentHour < 18 ? "Good Afternoon" : "Good Evening";
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gomo-dark">
       {/* Header */}
-      <header className="gradient-purple text-white p-6 shadow-md">
+      <header className="gradient-magenta-purple text-white py-8 px-6">
         <div className="max-w-md mx-auto flex items-center justify-between">
           <div>
             <p className="text-sm opacity-90">Welcome back</p>
@@ -48,113 +48,134 @@ export function HomePage() {
       {/* Alert Banner */}
       {userData.hasAlert && (
         <div className="max-w-md mx-auto p-6">
-          <Card className="border-accent bg-accent shadow-elevated">
-            <CardContent className="p-5 flex items-start gap-4">
-              <div className="bg-accent-foreground/10 rounded-full p-2">
-                <Bell className="h-5 w-5 text-accent-foreground" />
-              </div>
-              <div className="flex-1">
-                <p className="font-bold text-accent-foreground mb-1">Bill Due Soon</p>
-                <p className="text-sm text-accent-foreground/80">Your bill of CHF {userData.currentBalance} is due on {userData.dueDate}</p>
-              </div>
-            </CardContent>
-          </Card>
+          <div className="bg-[hsl(45,100%,51%)] rounded-2xl shadow-xl p-5 flex items-start gap-4">
+            <div className="bg-black/10 rounded-full p-3">
+              <Bell className="h-6 w-6 text-black" />
+            </div>
+            <div className="flex-1">
+              <p className="font-extrabold text-black mb-1">Bill Due Soon</p>
+              <p className="text-sm text-black/80 font-medium">Your bill of CHF {userData.currentBalance} is due on {userData.dueDate}</p>
+            </div>
+          </div>
         </div>
       )}
 
       <main className="max-w-md mx-auto px-6 pb-8 space-y-6">
         {/* Data Usage Card */}
-        <Card className="shadow-elevated hover:shadow-hover transition-shadow">
-          <CardHeader>
-            <CardTitle className="text-xl font-bold">Data Usage</CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col items-center py-6">
-            <ProgressRing progress={dataPercentage} size={150} strokeWidth={12} />
-            <p className="mt-6 text-base font-semibold text-foreground">{userData.dataUsed} GB of {userData.dataTotal} GB used</p>
-            <p className="text-sm text-muted-foreground mt-1">Unlimited calls & SMS in Switzerland</p>
-          </CardContent>
-        </Card>
+        <div className="gradient-magenta rounded-2xl p-6 text-white">
+          <h2 className="text-xl font-extrabold mb-6">Data Usage</h2>
+          <div className="flex flex-col items-center py-6">
+            <div className="relative inline-flex items-center justify-center">
+              <svg width={150} height={150} className="transform -rotate-90">
+                <circle
+                  cx={75}
+                  cy={75}
+                  r={67}
+                  stroke="white"
+                  strokeWidth={12}
+                  fill="none"
+                  className="opacity-30"
+                />
+                <circle
+                  cx={75}
+                  cy={75}
+                  r={67}
+                  stroke="white"
+                  strokeWidth={12}
+                  fill="none"
+                  strokeDasharray={421}
+                  strokeDashoffset={421 - (dataPercentage / 100) * 421}
+                  strokeLinecap="round"
+                  className="transition-all duration-500 ease-out"
+                />
+              </svg>
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <span className="text-3xl font-bold text-white">{Math.round(dataPercentage)}%</span>
+              </div>
+            </div>
+            <p className="mt-6 text-lg font-bold text-white">{userData.dataUsed} GB of {userData.dataTotal} GB used</p>
+            <p className="text-sm text-white/80 mt-1 font-medium">Unlimited calls & SMS in Switzerland</p>
+          </div>
+        </div>
 
         {/* Quick Actions */}
-        <Card className="shadow-elevated">
-          <CardHeader>
-            <CardTitle className="text-xl font-bold">Quick Actions</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-4">
-              <Link to="/billing" className="block">
-                <Button variant="outline" className="w-full h-auto flex-col gap-3 py-6 hover:border-primary hover:bg-primary/5 transition-all">
-                  <div className="bg-primary/10 rounded-full p-3">
-                    <CreditCard className="h-6 w-6 text-primary" />
-                  </div>
-                  <span className="text-sm font-semibold">Pay Bill</span>
-                </Button>
-              </Link>
-              <Button variant="outline" className="w-full h-auto flex-col gap-3 py-6 hover:border-primary hover:bg-primary/5 transition-all">
-                <div className="bg-primary/10 rounded-full p-3">
-                  <Globe className="h-6 w-6 text-primary" />
+        <div>
+          <h2 className="text-xl font-extrabold mb-4 text-white px-1">Quick Actions</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <Link to="/billing" className="block">
+              <button className="w-full bg-white/10 border border-white/20 rounded-2xl p-6 flex flex-col items-center gap-3 hover:gradient-magenta-purple hover:border-transparent transition-all group">
+                <div className="bg-primary/20 group-hover:bg-white/20 rounded-full p-3 transition-colors">
+                  <CreditCard className="h-7 w-7 text-primary group-hover:text-white transition-colors" />
                 </div>
-                <span className="text-sm font-semibold">Roaming</span>
-              </Button>
-              <Link to="/billing/invoice" className="block">
-                <Button variant="outline" className="w-full h-auto flex-col gap-3 py-6 hover:border-primary hover:bg-primary/5 transition-all">
-                  <div className="bg-primary/10 rounded-full p-3">
-                    <FileText className="h-6 w-6 text-primary" />
-                  </div>
-                  <span className="text-sm font-semibold">Invoice</span>
-                </Button>
-              </Link>
-              <Button variant="outline" className="w-full h-auto flex-col gap-3 py-6 hover:border-primary hover:bg-primary/5 transition-all">
-                <div className="bg-primary/10 rounded-full p-3">
-                  <MessageCircle className="h-6 w-6 text-primary" />
+                <span className="text-sm font-bold text-white">Pay Bill</span>
+              </button>
+            </Link>
+            <button className="w-full bg-white/10 border border-white/20 rounded-2xl p-6 flex flex-col items-center gap-3 hover:gradient-magenta-purple hover:border-transparent transition-all group">
+              <div className="bg-primary/20 group-hover:bg-white/20 rounded-full p-3 transition-colors">
+                <Globe className="h-7 w-7 text-primary group-hover:text-white transition-colors" />
+              </div>
+              <span className="text-sm font-bold text-white">Roaming</span>
+            </button>
+            <Link to="/billing/invoice" className="block">
+              <button className="w-full bg-white/10 border border-white/20 rounded-2xl p-6 flex flex-col items-center gap-3 hover:gradient-magenta-purple hover:border-transparent transition-all group">
+                <div className="bg-primary/20 group-hover:bg-white/20 rounded-full p-3 transition-colors">
+                  <FileText className="h-7 w-7 text-primary group-hover:text-white transition-colors" />
                 </div>
-                <span className="text-sm font-semibold">Support</span>
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+                <span className="text-sm font-bold text-white">Invoice</span>
+              </button>
+            </Link>
+            <button className="w-full bg-white/10 border border-white/20 rounded-2xl p-6 flex flex-col items-center gap-3 hover:gradient-magenta-purple hover:border-transparent transition-all group">
+              <div className="bg-primary/20 group-hover:bg-white/20 rounded-full p-3 transition-colors">
+                <MessageCircle className="h-7 w-7 text-primary group-hover:text-white transition-colors" />
+              </div>
+              <span className="text-sm font-bold text-white">Support</span>
+            </button>
+          </div>
+        </div>
 
         {/* Billing Summary */}
-        <Card className="border-2 border-primary shadow-elevated hover:shadow-hover transition-all">
-          <CardHeader>
-            <CardTitle className="text-xl font-bold">Current Bill</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-5">
+        <div className="gradient-deep-purple rounded-2xl p-6 text-white">
+          <h2 className="text-xl font-extrabold mb-6">Current Bill</h2>
+          <div className="space-y-5">
             <div>
-              <p className="text-5xl font-bold text-primary mb-2">CHF {userData.currentBalance}</p>
-              <p className="text-base text-muted-foreground mb-3">Due on {userData.dueDate}</p>
-              <div className="inline-block px-4 py-1.5 bg-warning text-accent-foreground rounded-full text-sm font-bold">
+              <p className="text-5xl font-bold text-white mb-2">CHF {userData.currentBalance}</p>
+              <p className="text-base text-white/80 mb-3 font-medium">Due on {userData.dueDate}</p>
+              <div className="inline-block px-5 py-2 bg-[hsl(45,100%,51%)] text-black rounded-full text-sm font-extrabold">
                 Due Soon
               </div>
             </div>
             <div className="flex gap-3">
               <Link to="/billing" className="flex-1">
-                <Button className="w-full" variant="accent" size="lg">Pay Now</Button>
+                <button className="w-full bg-[hsl(45,100%,51%)] hover:bg-[hsl(45,100%,46%)] text-black font-bold py-3 px-6 rounded-lg transition-colors">
+                  Pay Now
+                </button>
               </Link>
               <Link to="/billing/invoice">
-                <Button variant="outline" size="lg">View Details</Button>
+                <button className="border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-6 rounded-lg transition-colors">
+                  View Details
+                </button>
               </Link>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
         {/* Plan Info Card */}
-        <Card className="shadow-elevated">
-          <CardHeader>
-            <CardTitle className="text-xl font-bold">Your Plan</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
+        <div className="gradient-gomo-blue rounded-2xl p-6 text-white">
+          <h2 className="text-xl font-extrabold mb-6">Your Plan</h2>
+          <div className="space-y-4">
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <p className="font-bold text-lg mb-1">{userData.planName}</p>
-                <p className="text-sm text-muted-foreground">Unlimited data in Europe</p>
+                <p className="font-bold text-xl mb-1 text-white">{userData.planName}</p>
+                <p className="text-sm text-white/80 font-medium">Unlimited data in Europe</p>
               </div>
-              <p className="text-2xl font-bold text-accent">CHF {userData.planPrice}</p>
+              <p className="text-3xl font-extrabold text-[hsl(45,100%,51%)]">CHF {userData.planPrice}</p>
             </div>
-            <p className="text-sm text-muted-foreground">Next renewal: {userData.renewalDate}</p>
-            <Button variant="outline" className="w-full" size="lg">Modify Plan</Button>
-          </CardContent>
-        </Card>
+            <p className="text-sm text-white/80 font-medium">Next renewal: {userData.renewalDate}</p>
+            <button className="w-full border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-6 rounded-lg transition-colors">
+              Modify Plan
+            </button>
+          </div>
+        </div>
       </main>
     </div>
   );
