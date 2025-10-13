@@ -8,21 +8,21 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* GoMo Brand Colors */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 15%;
+    /* GoMo Brand Colors - Adjusted to match website */
+    --background: 0 0% 98%;
+    --foreground: 0 0% 10%;
     
     --gomo-magenta: 331 85% 52%;
     --gomo-purple: 266 68% 38%;
-    --gomo-blue: 225 73% 57%;
-    --gomo-yellow: 48 100% 50%;
-    --gomo-dark: 240 10% 12%;
+    --gomo-blue: 217 73% 57%;
+    --gomo-yellow: 45 100% 51%;
+    --gomo-dark: 0 0% 12%;
     
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 15%;
+    --card-foreground: 0 0% 10%;
     
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 15%;
+    --popover-foreground: 0 0% 10%;
     
     --primary: 331 85% 52%;
     --primary-foreground: 0 0% 100%;
@@ -31,46 +31,49 @@ All colors MUST be HSL.
     --secondary-foreground: 0 0% 100%;
     
     --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted-foreground: 0 0% 40%;
     
-    --accent: 48 100% 50%;
-    --accent-foreground: 0 0% 15%;
+    --accent: 45 100% 51%;
+    --accent-foreground: 0 0% 10%;
     
     --success: 142 71% 45%;
     --success-foreground: 0 0% 100%;
     
     --warning: 25 95% 53%;
-    --warning-foreground: 0 0% 100%;
+    --warning-foreground: 0 0% 10%;
     
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
     
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
     --ring: 331 85% 52%;
     
     --radius: 1rem;
     
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(331 85% 52%), hsl(225 73% 57%));
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 98%));
+    --gradient-hero: linear-gradient(135deg, hsl(331 85% 52%), hsl(217 73% 57%));
+    --gradient-purple: linear-gradient(135deg, hsl(266 68% 38%), hsl(266 68% 48%));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 99%));
     
     /* Shadows */
-    --shadow-card: 0 2px 8px hsl(0 0% 0% / 0.08);
-    --shadow-elevated: 0 8px 24px hsl(0 0% 0% / 0.12);
+    --shadow-card: 0 1px 3px hsl(0 0% 0% / 0.06);
+    --shadow-elevated: 0 4px 16px hsl(0 0% 0% / 0.08);
+    --shadow-hover: 0 8px 24px hsl(0 0% 0% / 0.12);
     
     /* Transitions */
     --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.2s ease-out;
   }
 
   .dark {
-    --background: 240 10% 12%;
+    --background: 0 0% 12%;
     --foreground: 0 0% 98%;
     
-    --card: 240 10% 15%;
+    --card: 0 0% 15%;
     --card-foreground: 0 0% 98%;
     
-    --popover: 240 10% 15%;
+    --popover: 0 0% 15%;
     --popover-foreground: 0 0% 98%;
     
     --primary: 331 85% 52%;
@@ -79,18 +82,19 @@ All colors MUST be HSL.
     --secondary: 266 68% 38%;
     --secondary-foreground: 0 0% 100%;
     
-    --muted: 240 10% 20%;
+    --muted: 0 0% 20%;
     --muted-foreground: 0 0% 65%;
     
-    --accent: 48 100% 50%;
-    --accent-foreground: 0 0% 15%;
+    --accent: 45 100% 51%;
+    --accent-foreground: 0 0% 10%;
     
-    --border: 240 10% 25%;
-    --input: 240 10% 25%;
+    --border: 0 0% 25%;
+    --input: 0 0% 25%;
     --ring: 331 85% 52%;
     
-    --shadow-card: 0 2px 8px hsl(0 0% 0% / 0.3);
-    --shadow-elevated: 0 8px 24px hsl(0 0% 0% / 0.4);
+    --shadow-card: 0 1px 3px hsl(0 0% 0% / 0.4);
+    --shadow-elevated: 0 4px 16px hsl(0 0% 0% / 0.5);
+    --shadow-hover: 0 8px 24px hsl(0 0% 0% / 0.6);
   }
 }
 
@@ -113,6 +117,10 @@ All colors MUST be HSL.
     background: var(--gradient-hero);
   }
   
+  .gradient-purple {
+    background: var(--gradient-purple);
+  }
+  
   .gradient-card {
     background: var(--gradient-card);
   }
@@ -125,7 +133,15 @@ All colors MUST be HSL.
     box-shadow: var(--shadow-elevated);
   }
   
+  .shadow-hover {
+    box-shadow: var(--shadow-hover);
+  }
+  
   .transition-base {
     transition: var(--transition-base);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
   }
 }

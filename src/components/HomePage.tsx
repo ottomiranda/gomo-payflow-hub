@@ -3,14 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ProgressRing } from "@/components/ui/progress-ring";
 import { 
-  Phone, 
-  MessageSquare, 
   CreditCard, 
-  HelpCircle,
-  Plane,
   FileText,
   Settings,
-  Bell
+  Bell,
+  Globe,
+  MessageCircle
 } from "lucide-react";
 
 export function HomePage() {
@@ -29,167 +27,132 @@ export function HomePage() {
 
   const dataPercentage = (userData.dataUsed / userData.dataTotal) * 100;
 
+  const currentHour = new Date().getHours();
+  const greeting = currentHour < 12 ? "Good Morning" : currentHour < 18 ? "Good Afternoon" : "Good Evening";
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-gomo-purple text-white p-4 sticky top-0 z-10 shadow-md">
+      <header className="gradient-purple text-white p-6 shadow-md">
         <div className="max-w-md mx-auto flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-bold">GoMo</h1>
-            <p className="text-sm opacity-90">Hi, {userData.name}!</p>
+            <p className="text-sm opacity-90">Welcome back</p>
+            <h1 className="text-2xl font-bold">{greeting}, {userData.name}</h1>
           </div>
           <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
-            <Settings className="h-5 w-5" />
+            <Settings className="h-6 w-6" />
           </Button>
         </div>
       </header>
 
-      <main className="max-w-md mx-auto p-4 space-y-4 pb-20">
-        {/* Alert Banner */}
-        {userData.hasAlert && (
-          <Card className="bg-warning border-warning shadow-card">
-            <CardContent className="p-4 flex items-start gap-3">
-              <Bell className="h-5 w-5 text-warning-foreground flex-shrink-0 mt-0.5" />
+      {/* Alert Banner */}
+      {userData.hasAlert && (
+        <div className="max-w-md mx-auto p-6">
+          <Card className="border-accent bg-accent shadow-elevated">
+            <CardContent className="p-5 flex items-start gap-4">
+              <div className="bg-accent-foreground/10 rounded-full p-2">
+                <Bell className="h-5 w-5 text-accent-foreground" />
+              </div>
               <div className="flex-1">
-                <p className="font-semibold text-warning-foreground">Bill Due Soon</p>
-                <p className="text-sm text-warning-foreground/90">Your bill of CHF {userData.currentBalance} is due on {userData.dueDate}</p>
+                <p className="font-bold text-accent-foreground mb-1">Bill Due Soon</p>
+                <p className="text-sm text-accent-foreground/80">Your bill of CHF {userData.currentBalance} is due on {userData.dueDate}</p>
               </div>
             </CardContent>
           </Card>
-        )}
+        </div>
+      )}
 
+      <main className="max-w-md mx-auto px-6 pb-8 space-y-6">
         {/* Data Usage Card */}
-        <Card className="shadow-card">
+        <Card className="shadow-elevated hover:shadow-hover transition-shadow">
           <CardHeader>
-            <CardTitle>Data Usage</CardTitle>
+            <CardTitle className="text-xl font-bold">Data Usage</CardTitle>
           </CardHeader>
-          <CardContent className="flex items-center justify-between">
-            <div className="flex-1">
-              <ProgressRing progress={dataPercentage} />
-            </div>
-            <div className="flex-1 space-y-2">
-              <div>
-                <p className="text-3xl font-bold">{userData.dataUsed} GB</p>
-                <p className="text-sm text-muted-foreground">of {userData.dataTotal} GB used</p>
-              </div>
-              <p className="text-xs text-muted-foreground">
-                Unlimited calls & SMS in Switzerland
-              </p>
-            </div>
+          <CardContent className="flex flex-col items-center py-6">
+            <ProgressRing progress={dataPercentage} size={150} strokeWidth={12} />
+            <p className="mt-6 text-base font-semibold text-foreground">{userData.dataUsed} GB of {userData.dataTotal} GB used</p>
+            <p className="text-sm text-muted-foreground mt-1">Unlimited calls & SMS in Switzerland</p>
           </CardContent>
         </Card>
 
         {/* Quick Actions */}
-        <div>
-          <h2 className="text-sm font-semibold text-muted-foreground mb-3 px-1">Quick Actions</h2>
-          <div className="grid grid-cols-4 gap-3">
-            <Button
-              variant="outline"
-              className="h-auto flex-col gap-2 p-4 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-base"
-              asChild
-            >
-              <Link to="/billing">
-                <CreditCard className="h-6 w-6" />
-                <span className="text-xs">Pay Bill</span>
-              </Link>
-            </Button>
-            
-            <Button
-              variant="outline"
-              className="h-auto flex-col gap-2 p-4 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-base"
-            >
-              <Plane className="h-6 w-6" />
-              <span className="text-xs">Roaming</span>
-            </Button>
-            
-            <Button
-              variant="outline"
-              className="h-auto flex-col gap-2 p-4 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-base"
-              asChild
-            >
-              <Link to="/billing/invoice">
-                <FileText className="h-6 w-6" />
-                <span className="text-xs">Invoice</span>
-              </Link>
-            </Button>
-            
-            <Button
-              variant="outline"
-              className="h-auto flex-col gap-2 p-4 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-base"
-            >
-              <HelpCircle className="h-6 w-6" />
-              <span className="text-xs">Support</span>
-            </Button>
-          </div>
-        </div>
-
-        {/* Billing Summary Card */}
-        <Card className="shadow-card border-2 border-primary/20">
+        <Card className="shadow-elevated">
           <CardHeader>
-            <CardTitle className="flex items-center justify-between">
-              <span>Current Bill</span>
-              <span className="text-warning text-sm font-normal">Due {userData.dueDate}</span>
-            </CardTitle>
+            <CardTitle className="text-xl font-bold">Quick Actions</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <p className="text-4xl font-bold text-primary">CHF {userData.currentBalance}</p>
-              <p className="text-sm text-muted-foreground mt-1">Amount due</p>
+          <CardContent>
+            <div className="grid grid-cols-2 gap-4">
+              <Link to="/billing" className="block">
+                <Button variant="outline" className="w-full h-auto flex-col gap-3 py-6 hover:border-primary hover:bg-primary/5 transition-all">
+                  <div className="bg-primary/10 rounded-full p-3">
+                    <CreditCard className="h-6 w-6 text-primary" />
+                  </div>
+                  <span className="text-sm font-semibold">Pay Bill</span>
+                </Button>
+              </Link>
+              <Button variant="outline" className="w-full h-auto flex-col gap-3 py-6 hover:border-primary hover:bg-primary/5 transition-all">
+                <div className="bg-primary/10 rounded-full p-3">
+                  <Globe className="h-6 w-6 text-primary" />
+                </div>
+                <span className="text-sm font-semibold">Roaming</span>
+              </Button>
+              <Link to="/billing/invoice" className="block">
+                <Button variant="outline" className="w-full h-auto flex-col gap-3 py-6 hover:border-primary hover:bg-primary/5 transition-all">
+                  <div className="bg-primary/10 rounded-full p-3">
+                    <FileText className="h-6 w-6 text-primary" />
+                  </div>
+                  <span className="text-sm font-semibold">Invoice</span>
+                </Button>
+              </Link>
+              <Button variant="outline" className="w-full h-auto flex-col gap-3 py-6 hover:border-primary hover:bg-primary/5 transition-all">
+                <div className="bg-primary/10 rounded-full p-3">
+                  <MessageCircle className="h-6 w-6 text-primary" />
+                </div>
+                <span className="text-sm font-semibold">Support</span>
+              </Button>
             </div>
-            <Button 
-              className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
-              size="lg"
-              asChild
-            >
-              <Link to="/billing">Pay Now</Link>
-            </Button>
-            <Button 
-              variant="ghost" 
-              className="w-full"
-              asChild
-            >
-              <Link to="/billing/invoice">View Invoice Details</Link>
-            </Button>
+          </CardContent>
+        </Card>
+
+        {/* Billing Summary */}
+        <Card className="border-2 border-primary shadow-elevated hover:shadow-hover transition-all">
+          <CardHeader>
+            <CardTitle className="text-xl font-bold">Current Bill</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-5">
+            <div>
+              <p className="text-5xl font-bold text-primary mb-2">CHF {userData.currentBalance}</p>
+              <p className="text-base text-muted-foreground mb-3">Due on {userData.dueDate}</p>
+              <div className="inline-block px-4 py-1.5 bg-warning text-accent-foreground rounded-full text-sm font-bold">
+                Due Soon
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <Link to="/billing" className="flex-1">
+                <Button className="w-full" variant="accent" size="lg">Pay Now</Button>
+              </Link>
+              <Link to="/billing/invoice">
+                <Button variant="outline" size="lg">View Details</Button>
+              </Link>
+            </div>
           </CardContent>
         </Card>
 
         {/* Plan Info Card */}
-        <Card className="shadow-card">
+        <Card className="shadow-elevated">
           <CardHeader>
-            <CardTitle>Your Plan</CardTitle>
+            <CardTitle className="text-xl font-bold">Your Plan</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
+          <CardContent className="space-y-4">
             <div className="flex items-start justify-between">
-              <div>
-                <p className="font-semibold text-lg">{userData.planName}</p>
+              <div className="flex-1">
+                <p className="font-bold text-lg mb-1">{userData.planName}</p>
                 <p className="text-sm text-muted-foreground">Unlimited data in Europe</p>
               </div>
-              <div className="text-right">
-                <p className="text-2xl font-bold">CHF {userData.planPrice}</p>
-                <p className="text-xs text-muted-foreground">/month</p>
-              </div>
+              <p className="text-2xl font-bold text-accent">CHF {userData.planPrice}</p>
             </div>
-            
-            <div className="pt-3 border-t space-y-2">
-              <div className="flex items-center gap-2 text-sm">
-                <Phone className="h-4 w-4 text-primary" />
-                <span>Unlimited calls & SMS in CH</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm">
-                <MessageSquare className="h-4 w-4 text-primary" />
-                <span>20 GB high-speed roaming in EU</span>
-              </div>
-            </div>
-            
-            <div className="pt-2">
-              <p className="text-xs text-muted-foreground">
-                Next renewal: {userData.renewalDate}
-              </p>
-            </div>
-            
-            <Button variant="outline" className="w-full">
-              Modify Plan
-            </Button>
+            <p className="text-sm text-muted-foreground">Next renewal: {userData.renewalDate}</p>
+            <Button variant="outline" className="w-full" size="lg">Modify Plan</Button>
           </CardContent>
         </Card>
       </main>
