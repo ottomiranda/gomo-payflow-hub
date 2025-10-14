@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2, FileText } from "lucide-react";
 import { useEffect, useState } from "react";
+import { BottomNavbar } from "@/components/layout/BottomNavbar";
+import { NavigationDrawer } from "@/components/layout/NavigationDrawer";
 
 export function PaymentSuccess() {
   const [showConfetti, setShowConfetti] = useState(true);
@@ -30,6 +32,8 @@ export function PaymentSuccess() {
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
+      <NavigationDrawer />
+      
       {/* Confetti Effect */}
       {showConfetti && (
         <div className="absolute inset-0 pointer-events-none z-10">
@@ -63,7 +67,7 @@ export function PaymentSuccess() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-md mx-auto px-6 py-8 space-y-6 pb-8 relative z-20">
+      <main className="max-w-md mx-auto px-6 py-8 space-y-6 pb-24 relative z-20">
         {/* Success Card */}
         <Card className="border-2 border-success shadow-elevated">
           <CardContent className="p-10 text-center space-y-6">
@@ -134,6 +138,8 @@ export function PaymentSuccess() {
           </Button>
         </div>
       </main>
+
+      <BottomNavbar />
     </div>
   );
 }

@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ChevronLeft, FileText } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
+import { BottomNavbar } from "@/components/layout/BottomNavbar";
+import { NavigationDrawer } from "@/components/layout/NavigationDrawer";
 
 export function BillingSummary() {
   const billData = {
@@ -14,6 +16,8 @@ export function BillingSummary() {
 
   return (
     <div className="min-h-screen bg-background">
+      <NavigationDrawer />
+      
       {/* Header */}
       <header className="gradient-purple text-white p-6 sticky top-0 z-10 shadow-md">
         <div className="max-w-md mx-auto flex items-center gap-4">
@@ -27,7 +31,7 @@ export function BillingSummary() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-md mx-auto px-6 py-6 space-y-6 pb-8">
+      <main className="max-w-md mx-auto px-6 py-6 space-y-6 pb-24">
         {/* Amount Due Card */}
         <Card className="border-2 border-primary shadow-elevated hover:shadow-hover transition-all">
           <CardContent className="p-8 space-y-6">
@@ -101,6 +105,8 @@ export function BillingSummary() {
           </CardContent>
         </Card>
       </main>
+
+      <BottomNavbar />
     </div>
   );
 }

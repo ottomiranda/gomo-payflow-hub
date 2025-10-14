@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { ChevronLeft, CreditCard, Lock, AlertCircle, Shield } from "lucide-react";
+import { BottomNavbar } from "@/components/layout/BottomNavbar";
+import { NavigationDrawer } from "@/components/layout/NavigationDrawer";
 
 export function PaymentConfirm() {
   const navigate = useNavigate();
@@ -24,6 +26,8 @@ export function PaymentConfirm() {
 
   return (
     <div className="min-h-screen bg-background">
+      <NavigationDrawer />
+      
       {/* Header */}
       <header className="gradient-purple text-white p-6 sticky top-0 z-10 shadow-md">
         <div className="max-w-md mx-auto flex items-center gap-4">
@@ -37,7 +41,7 @@ export function PaymentConfirm() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-md mx-auto px-6 py-6 space-y-6 pb-8">
+      <main className="max-w-md mx-auto px-6 py-6 space-y-6 pb-24">
         {/* Secure Payment Badge */}
         <div className="flex items-center justify-center gap-3 p-4 bg-success/10 rounded-xl border border-success/20">
           <Shield className="h-6 w-6 text-success" />
@@ -117,6 +121,8 @@ export function PaymentConfirm() {
           </Link>
         </div>
       </main>
+
+      <BottomNavbar />
 
       {/* Processing Dialog */}
       <Dialog open={showProcessingDialog}>

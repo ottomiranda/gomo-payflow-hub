@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChevronLeft, Download } from "lucide-react";
+import { BottomNavbar } from "@/components/layout/BottomNavbar";
+import { NavigationDrawer } from "@/components/layout/NavigationDrawer";
 
 export function InvoiceDetails() {
   const invoiceData = {
@@ -24,6 +26,8 @@ export function InvoiceDetails() {
 
   return (
     <div className="min-h-screen bg-background">
+      <NavigationDrawer />
+      
       {/* Header */}
       <header className="gradient-purple text-white p-6 sticky top-0 z-10 shadow-md">
         <div className="max-w-md mx-auto">
@@ -42,7 +46,7 @@ export function InvoiceDetails() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-md mx-auto px-6 py-6 pb-8">
+      <main className="max-w-md mx-auto px-6 py-6 pb-24">
         <Tabs defaultValue="details" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-6 h-12 bg-muted p-1">
             <TabsTrigger value="details" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground font-semibold">Details</TabsTrigger>
@@ -130,6 +134,8 @@ export function InvoiceDetails() {
           </TabsContent>
         </Tabs>
       </main>
+
+      <BottomNavbar />
     </div>
   );
 }

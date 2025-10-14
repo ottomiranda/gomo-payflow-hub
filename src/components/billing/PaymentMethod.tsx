@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ChevronLeft, CreditCard, Plus, Smartphone, Shield } from "lucide-react";
+import { BottomNavbar } from "@/components/layout/BottomNavbar";
+import { NavigationDrawer } from "@/components/layout/NavigationDrawer";
 
 export function PaymentMethod() {
   const navigate = useNavigate();
@@ -21,6 +23,8 @@ export function PaymentMethod() {
 
   return (
     <div className="min-h-screen bg-background">
+      <NavigationDrawer />
+      
       {/* Header */}
       <header className="gradient-purple text-white p-6 sticky top-0 z-10 shadow-md">
         <div className="max-w-md mx-auto flex items-center gap-4">
@@ -34,7 +38,7 @@ export function PaymentMethod() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-md mx-auto px-6 py-6 space-y-6 pb-8">
+      <main className="max-w-md mx-auto px-6 py-6 space-y-6 pb-24">
         {/* Amount Card */}
         <Card className="border-2 border-primary shadow-elevated">
           <CardContent className="p-8">
@@ -102,6 +106,8 @@ export function PaymentMethod() {
           Continue to Payment
         </Button>
       </main>
+
+      <BottomNavbar />
     </div>
   );
 }
