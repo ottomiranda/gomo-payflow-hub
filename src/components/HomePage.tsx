@@ -1,21 +1,37 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ProgressRing } from "@/components/ui/progress-ring";
+import { Progress } from "@/components/ui/progress";
+import useEmblaCarousel from "embla-carousel-react";
 import { 
   CreditCard, 
   FileText,
   Menu,
   Bell,
   Globe,
-  MessageCircle
+  MessageCircle,
+  ArrowRight
 } from "lucide-react";
 import { BottomNavbar } from "@/components/layout/BottomNavbar";
 import { NavigationDrawer } from "@/components/layout/NavigationDrawer";
 import { useNavigation } from "@/contexts/NavigationContext";
 
+type UsageTab = 'mobileData' | 'text' | 'minutes';
+
+interface FamilyMember {
+  id: number;
+  name: string;
+  mobileData: { used: number; total: number; renewDate: string };
+  text: { used: number; total: number; renewDate: string };
+  minutes: { used: number; total: number; renewDate: string };
+}
+
 export function HomePage() {
   const { setDrawerOpen } = useNavigation();
+  const [activeTab, setActiveTab] = useState<UsageTab>('mobileData');
+  const [emblaRef] = useEmblaCarousel({ loop: false, align: 'start' });
   
   // Mock data
   const userData = {
@@ -30,10 +46,92 @@ export function HomePage() {
     hasAlert: true
   };
 
+  const familyMembers: FamilyMember[] = [
+    {
+      id: 1,
+      name: "Alex Santos",
+      mobileData: { used: 5.5, total: 10, renewDate: "31 Oct 2025" },
+      text: { used: 56, total: 3500, renewDate: "31 Oct 2025" },
+      minutes: { used: 122, total: 4000, renewDate: "31 Oct 2025" }
+    },
+    {
+      id: 2,
+      name: "Maria Santos",
+      mobileData: { used: 8.2, total: 10, renewDate: "31 Oct 2025" },
+      text: { used: 134, total: 3500, renewDate: "31 Oct 2025" },
+      minutes: { used: 456, total: 4000, renewDate: "31 Oct 2025" }
+    },
+    {
+      id: 3,
+      name: "João Santos",
+      mobileData: { used: 2.1, total: 10, renewDate: "31 Oct 2025" },
+      text: { used: 12, total: 3500, renewDate: "31 Oct 2025" },
+      minutes: { used: 78, total: 4000, renewDate: "31 Oct 2025" }
+    }
+  ];
+
   const dataPercentage = (userData.dataUsed / userData.dataTotal) * 100;
 
   const currentHour = new Date().getHours();
   const greeting = currentHour < 12 ? "Good Morning" : currentHour < 18 ? "Good Afternoon" : "Good Evening";
+
+  const renderUsageContent = (member: FamilyMember) => {
+    let data, unit, label, available;
+    
+    switch(activeTab) {
+      case 'mobileData':
+        data = member.mobileData;
+        unit = 'GB';
+        label = 'Mobile data';
+        available = `${data.total}GB available`;
+        break;
+      case 'text':
+        data = member.text;
+        unit = 'SMS';
+        label = 'Text';
+        available = `${data.total.toLocaleString()} SMS available`;
+        break;
+      case 'minutes':
+        data = member.minutes;
+        unit = 'Min';
+        label = 'Minutes';
+        available = `${data.total.toLocaleString()} Min available`;
+        break;
+    }
+    
+    const percentage = (data.used / data.total) * 100;
+    const usedDisplay = activeTab === 'mobileData' ? data.used : data.used.toLocaleString();
+    const totalDisplay = activeTab === 'mobileData' ? data.total : data.total.toLocaleString();
+    
+    return (
+      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 space-y-4 min-w-[280px]">
+        <div className="flex items-center gap-3">
+          <div className="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center text-lg font-bold">
+            {member.name.charAt(0)}
+          </div>
+          <div>
+            <h4 className="font-bold text-white">{member.name}</h4>
+          </div>
+        </div>
+        
+        <div className="space-y-2">
+          <h3 className="text-lg font-bold text-white">{label}</h3>
+          <p className="text-sm text-white/80 font-medium">Renews on {data.renewDate}</p>
+          <p className="text-base font-semibold text-white">{available}</p>
+        </div>
+        
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <Progress value={percentage} className="flex-1 h-2 bg-white/20" />
+            <span className="text-sm font-bold text-white ml-3">{Math.round(percentage)}%</span>
+          </div>
+          <p className="text-sm text-white/90 font-medium">
+            Used: {usedDisplay} {unit} of {totalDisplay} {unit}
+          </p>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-gomo-dark pb-20">
@@ -76,40 +174,29 @@ export function HomePage() {
       )}
 
       <main className="max-w-md mx-auto px-6 pb-8 space-y-6">
-        {/* Data Usage Card */}
-        <div className="gradient-magenta rounded-2xl p-6 text-white">
-          <h2 className="text-xl font-extrabold mb-6">Data Usage</h2>
-          <div className="flex flex-col items-center py-6">
-            <div className="relative inline-flex items-center justify-center">
-              <svg width={150} height={150} className="transform -rotate-90">
-                <circle
-                  cx={75}
-                  cy={75}
-                  r={67}
-                  stroke="white"
-                  strokeWidth={12}
-                  fill="none"
-                  className="opacity-30"
-                />
-                <circle
-                  cx={75}
-                  cy={75}
-                  r={67}
-                  stroke="white"
-                  strokeWidth={12}
-                  fill="none"
-                  strokeDasharray={421}
-                  strokeDashoffset={421 - (dataPercentage / 100) * 421}
-                  strokeLinecap="round"
-                  className="transition-all duration-500 ease-out"
-                />
-              </svg>
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-3xl font-bold text-white">{Math.round(dataPercentage)}%</span>
+        {/* Billing Summary */}
+        <div className="gradient-deep-purple rounded-2xl p-6 text-white">
+          <h2 className="text-xl font-extrabold mb-6">Current Bill</h2>
+          <div className="space-y-5">
+            <div>
+              <p className="text-5xl font-bold text-white mb-2">CHF {userData.currentBalance}</p>
+              <p className="text-base text-white/80 mb-3 font-medium">Due on {userData.dueDate}</p>
+              <div className="inline-block px-5 py-2 bg-[hsl(45,100%,51%)] text-black rounded-full text-sm font-extrabold">
+                Due Soon
               </div>
             </div>
-            <p className="mt-6 text-lg font-bold text-white">{userData.dataUsed} GB of {userData.dataTotal} GB used</p>
-            <p className="text-sm text-white/80 mt-1 font-medium">Unlimited calls & SMS in Switzerland</p>
+            <div className="flex gap-3">
+              <Link to="/billing" className="flex-1">
+                <button className="w-full bg-[hsl(45,100%,51%)] hover:bg-[hsl(45,100%,46%)] text-black font-bold py-3 px-6 rounded-lg transition-colors">
+                  Pay Now
+                </button>
+              </Link>
+              <Link to="/billing/invoice">
+                <button className="border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-6 rounded-lg transition-colors">
+                  View Details
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -148,28 +235,56 @@ export function HomePage() {
           </div>
         </div>
 
-        {/* Billing Summary */}
-        <div className="gradient-deep-purple rounded-2xl p-6 text-white">
-          <h2 className="text-xl font-extrabold mb-6">Current Bill</h2>
-          <div className="space-y-5">
-            <div>
-              <p className="text-5xl font-bold text-white mb-2">CHF {userData.currentBalance}</p>
-              <p className="text-base text-white/80 mb-3 font-medium">Due on {userData.dueDate}</p>
-              <div className="inline-block px-5 py-2 bg-[hsl(45,100%,51%)] text-black rounded-full text-sm font-extrabold">
-                Due Soon
-              </div>
+        {/* Data Usage Card with Carousel */}
+        <div className="gradient-magenta rounded-2xl p-6 text-white">
+          {/* Header with Tabs and See All */}
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex gap-4">
+              <button
+                onClick={() => setActiveTab('mobileData')}
+                className={`pb-2 text-sm font-bold transition-all ${
+                  activeTab === 'mobileData'
+                    ? 'text-white border-b-2 border-white'
+                    : 'text-white/60 hover:text-white/80'
+                }`}
+              >
+                Mobile data
+              </button>
+              <button
+                onClick={() => setActiveTab('text')}
+                className={`pb-2 text-sm font-bold transition-all ${
+                  activeTab === 'text'
+                    ? 'text-white border-b-2 border-white'
+                    : 'text-white/60 hover:text-white/80'
+                }`}
+              >
+                Text
+              </button>
+              <button
+                onClick={() => setActiveTab('minutes')}
+                className={`pb-2 text-sm font-bold transition-all ${
+                  activeTab === 'minutes'
+                    ? 'text-white border-b-2 border-white'
+                    : 'text-white/60 hover:text-white/80'
+                }`}
+              >
+                Minutes
+              </button>
             </div>
-            <div className="flex gap-3">
-              <Link to="/billing" className="flex-1">
-                <button className="w-full bg-[hsl(45,100%,51%)] hover:bg-[hsl(45,100%,46%)] text-black font-bold py-3 px-6 rounded-lg transition-colors">
-                  Pay Now
-                </button>
-              </Link>
-              <Link to="/billing/invoice">
-                <button className="border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-6 rounded-lg transition-colors">
-                  View Details
-                </button>
-              </Link>
+            <button className="flex items-center gap-1 text-white/80 hover:text-white text-sm font-medium transition-colors">
+              See all
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+
+          {/* Carousel */}
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex gap-4">
+              {familyMembers.map((member) => (
+                <div key={member.id}>
+                  {renderUsageContent(member)}
+                </div>
+              ))}
             </div>
           </div>
         </div>
