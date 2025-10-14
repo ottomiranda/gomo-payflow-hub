@@ -20,7 +20,7 @@ const Support = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gomo-dark">
       <NavigationDrawer />
       
       {/* Header */}
@@ -42,7 +42,7 @@ const Support = () => {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
           <Input 
             placeholder="Search for help..." 
-            className="pl-10 h-12 text-base"
+            className="pl-10 h-12 text-base bg-white/10 border-white/20 text-white placeholder:text-white/50"
           />
         </div>
 
@@ -72,23 +72,23 @@ const Support = () => {
         </Card>
 
         {/* FAQ Topics */}
-        <Card className="shadow-elevated">
+        <Card className="bg-white/10 border-white/20 shadow-elevated text-white">
           <CardHeader>
-            <CardTitle className="text-xl font-bold">Browse Help Topics</CardTitle>
+            <CardTitle className="text-xl font-bold text-white">Browse Help Topics</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {faqTopics.map((topic, index) => (
               <div 
                 key={index}
-                className="flex items-center justify-between p-4 border rounded-xl hover:border-primary hover:bg-primary/5 transition-all cursor-pointer"
+                className="flex items-center justify-between p-4 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all cursor-pointer"
               >
                 <div className="flex items-center gap-4">
-                  <div className="bg-primary/10 rounded-full p-3">
-                    <topic.icon className="h-6 w-6 text-primary" />
+                  <div className="bg-white/20 rounded-full p-3">
+                    <topic.icon className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <p className="font-semibold">{topic.title}</p>
-                    <p className="text-sm text-muted-foreground">{topic.count} articles</p>
+                    <p className="font-semibold text-white">{topic.title}</p>
+                    <p className="text-sm text-white/70">{topic.count} articles</p>
                   </div>
                 </div>
               </div>
@@ -97,15 +97,15 @@ const Support = () => {
         </Card>
 
         {/* Quick Actions */}
-        <Card className="bg-muted/30 shadow-card">
+        <Card className="bg-white/10 border-white/20 shadow-card text-white">
           <CardContent className="p-6">
-            <h3 className="font-bold text-lg mb-4">Quick Actions</h3>
+            <h3 className="font-bold text-lg mb-4 text-white">Quick Actions</h3>
             <div className="space-y-3">
-              <Button variant="outline" className="w-full justify-start" size="lg">
+              <Button variant="outline" className="w-full justify-start bg-white/5 border-white/20 text-white hover:bg-white/10" size="lg">
                 <FileText className="h-5 w-5 mr-3" />
                 View Recent Tickets
               </Button>
-              <Button variant="outline" className="w-full justify-start" size="lg">
+              <Button variant="outline" className="w-full justify-start bg-white/5 border-white/20 text-white hover:bg-white/10" size="lg">
                 <Settings className="h-5 w-5 mr-3" />
                 Report Technical Issue
               </Button>

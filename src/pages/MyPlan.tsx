@@ -20,7 +20,7 @@ const MyPlan = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gomo-dark">
       <NavigationDrawer />
       
       {/* Header */}
@@ -59,49 +59,49 @@ const MyPlan = () => {
         </Card>
 
         {/* Plan Features */}
-        <Card className="shadow-elevated">
+        <Card className="bg-white/10 border-white/20 shadow-elevated text-white">
           <CardHeader>
-            <CardTitle className="text-xl font-bold">Plan Features</CardTitle>
+            <CardTitle className="text-xl font-bold text-white">Plan Features</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {planFeatures.map((feature, index) => (
               <div key={index} className="flex items-center gap-4 p-3">
-                <div className="bg-primary/10 rounded-full p-3">
-                  <feature.icon className="h-6 w-6 text-primary" />
+                <div className="bg-white/20 rounded-full p-3">
+                  <feature.icon className="h-6 w-6 text-white" />
                 </div>
                 <div className="flex-1">
-                  <p className="font-semibold">{feature.title}</p>
-                  <p className="text-sm text-muted-foreground">{feature.description}</p>
+                  <p className="font-semibold text-white">{feature.title}</p>
+                  <p className="text-sm text-white/70">{feature.description}</p>
                 </div>
-                <Check className="h-5 w-5 text-success" />
+                <Check className="h-5 w-5 text-[hsl(45,100%,51%)]" />
               </div>
             ))}
           </CardContent>
         </Card>
 
         {/* Add-ons */}
-        <Card className="shadow-elevated">
+        <Card className="bg-white/10 border-white/20 shadow-elevated text-white">
           <CardHeader>
-            <CardTitle className="text-xl font-bold">Available Add-ons</CardTitle>
+            <CardTitle className="text-xl font-bold text-white">Available Add-ons</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {addOns.map((addon, index) => (
               <div 
                 key={index}
                 className={`flex items-center justify-between p-4 rounded-xl border ${
-                  addon.active ? 'border-primary bg-primary/5' : 'border-border'
-                }`}
+                  addon.active 
+                    ? 'border-[hsl(45,100%,51%)] bg-[hsl(45,100%,51%)]/10' 
+                    : 'border-white/20 bg-white/5 hover:bg-white/10'
+                } transition-all cursor-pointer`}
               >
                 <div>
-                  <p className="font-semibold">{addon.name}</p>
-                  <p className="text-sm text-muted-foreground">{addon.price}</p>
+                  <p className="font-semibold text-white">{addon.name}</p>
+                  <p className="text-sm text-white/70">{addon.price}</p>
                 </div>
                 {addon.active ? (
-                  <span className="px-3 py-1 bg-success text-success-foreground rounded-full text-xs font-bold">
-                    Active
-                  </span>
+                  <span className="text-sm font-semibold text-[hsl(45,100%,51%)]">Active</span>
                 ) : (
-                  <Button variant="outline" size="sm">Add</Button>
+                  <Button size="sm" variant="outline" className="bg-white/5 border-white/20 text-white hover:bg-white/10">Add</Button>
                 )}
               </div>
             ))}

@@ -29,7 +29,7 @@ const Usage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gomo-dark">
       <NavigationDrawer />
       
       {/* Header */}
@@ -46,16 +46,16 @@ const Usage = () => {
 
       {/* Main Content */}
       <main className="max-w-md mx-auto px-6 py-6 space-y-6 pb-24">
-        <p className="text-muted-foreground">
+        <p className="text-white/80">
           View detailed usage information for all family members.
         </p>
 
         {usageData.map((member, index) => (
-          <Card key={index} className="shadow-elevated">
+          <Card key={index} className="bg-white/10 border-white/20 shadow-elevated text-white">
             <CardHeader>
-              <CardTitle className="text-xl font-bold flex items-center gap-2">
-                <div className="bg-primary/10 rounded-full p-2">
-                  <Smartphone className="h-5 w-5 text-primary" />
+              <CardTitle className="text-xl font-bold flex items-center gap-2 text-white">
+                <div className="bg-white/20 rounded-full p-2">
+                  <Smartphone className="h-5 w-5 text-white" />
                 </div>
                 {member.name}
               </CardTitle>
@@ -65,10 +65,10 @@ const Usage = () => {
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Globe className="h-4 w-4 text-primary" />
-                    <span className="font-semibold">Mobile Data</span>
+                    <Globe className="h-4 w-4 text-white" />
+                    <span className="font-semibold text-white">Mobile Data</span>
                   </div>
-                  <span className="text-sm text-muted-foreground">
+                  <span className="text-sm text-white/70">
                     {member.mobileData.used} / {member.mobileData.total} {member.mobileData.unit}
                   </span>
                 </div>
@@ -76,13 +76,13 @@ const Usage = () => {
               </div>
 
               {/* Text Messages */}
-              <div className="space-y-3 pt-2 border-t">
+              <div className="space-y-3 pt-2 border-t border-white/20">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <MessageSquare className="h-4 w-4 text-primary" />
-                    <span className="font-semibold">Text Messages</span>
+                    <MessageSquare className="h-4 w-4 text-white" />
+                    <span className="font-semibold text-white">Text Messages</span>
                   </div>
-                  <span className="text-sm text-muted-foreground">
+                  <span className="text-sm text-white/70">
                     {member.text.used} / {member.text.total} {member.text.unit}
                   </span>
                 </div>
@@ -90,13 +90,13 @@ const Usage = () => {
               </div>
 
               {/* Minutes */}
-              <div className="space-y-3 pt-2 border-t">
+              <div className="space-y-3 pt-2 border-t border-white/20">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Phone className="h-4 w-4 text-primary" />
-                    <span className="font-semibold">Call Minutes</span>
+                    <Phone className="h-4 w-4 text-white" />
+                    <span className="font-semibold text-white">Call Minutes</span>
                   </div>
-                  <span className="text-sm text-muted-foreground">
+                  <span className="text-sm text-white/70">
                     {member.minutes.used} / {member.minutes.total} {member.minutes.unit}
                   </span>
                 </div>
