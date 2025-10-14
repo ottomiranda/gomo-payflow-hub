@@ -168,4 +168,32 @@ All colors MUST be HSL.
   .transition-smooth {
     transition: var(--transition-smooth);
   }
+  
+  /* Navigation Animations */
+  @keyframes support-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(233, 30, 140, 0.5); }
+    50% { box-shadow: 0 0 30px rgba(233, 30, 140, 0.8); }
+  }
+
+  @keyframes bounce-subtle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  @keyframes navbar-slide-up {
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .support-fab-glow {
+    animation: support-glow 2s ease-in-out infinite;
+  }
+
+  .bounce-notification {
+    animation: bounce-subtle 0.6s ease-in-out 3;
+  }
+
+  .navbar-enter {
+    animation: navbar-slide-up 0.4s ease-out;
+  }
 }

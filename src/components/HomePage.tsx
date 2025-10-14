@@ -5,13 +5,18 @@ import { ProgressRing } from "@/components/ui/progress-ring";
 import { 
   CreditCard, 
   FileText,
-  Settings,
+  Menu,
   Bell,
   Globe,
   MessageCircle
 } from "lucide-react";
+import { BottomNavbar } from "@/components/layout/BottomNavbar";
+import { NavigationDrawer } from "@/components/layout/NavigationDrawer";
+import { useNavigation } from "@/contexts/NavigationContext";
 
 export function HomePage() {
+  const { setDrawerOpen } = useNavigation();
+  
   // Mock data
   const userData = {
     name: "Alex",
@@ -31,7 +36,7 @@ export function HomePage() {
   const greeting = currentHour < 12 ? "Good Morning" : currentHour < 18 ? "Good Afternoon" : "Good Evening";
 
   return (
-    <div className="min-h-screen bg-gomo-dark">
+    <div className="min-h-screen bg-gomo-dark pb-20">
       {/* Header */}
       <header className="gradient-magenta-purple text-white py-8 px-6">
         <div className="max-w-md mx-auto flex items-center justify-between">
@@ -39,9 +44,19 @@ export function HomePage() {
             <p className="text-sm opacity-90">Welcome back</p>
             <h1 className="text-2xl font-bold">{greeting}, {userData.name}</h1>
           </div>
-          <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
-            <Settings className="h-6 w-6" />
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
+              <Bell className="h-6 w-6" />
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="text-white hover:bg-white/20"
+              onClick={() => setDrawerOpen(true)}
+            >
+              <Menu className="h-6 w-6" />
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -177,6 +192,10 @@ export function HomePage() {
           </div>
         </div>
       </main>
+
+      {/* Navigation Components */}
+      <NavigationDrawer />
+      <BottomNavbar />
     </div>
   );
 }
