@@ -9,6 +9,7 @@ import Usage from "./pages/Usage";
 import Support from "./pages/Support";
 import Chat from "./pages/Chat";
 import MyPlan from "./pages/MyPlan";
+import RoamingManagement from "./pages/RoamingManagement";
 import { BillingSummary } from "./components/billing/BillingSummary";
 import { InvoiceDetails } from "./components/billing/InvoiceDetails";
 import { PaymentMethod } from "./components/billing/PaymentMethod";
@@ -31,6 +32,7 @@ const AppRoutes = () => {
       <Route path="/support" element={<Support />} />
       <Route path="/chat" element={<Chat />} />
       <Route path="/my-plan" element={<MyPlan />} />
+      <Route path="/roaming" element={<RoamingManagement />} />
       <Route path="/billing" element={<BillingSummary />} />
       <Route path="/billing/invoice" element={<InvoiceDetails />} />
       <Route path="/billing/payment-method" element={<PaymentMethod />} />

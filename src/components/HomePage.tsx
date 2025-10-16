@@ -277,12 +277,14 @@ export function HomePage() {
                 <span className="text-sm font-bold text-white">Pay Bill</span>
               </button>
             </LinkWithScroll>
-            <button className="w-full bg-white/10 border border-white/20 rounded-2xl p-6 flex flex-col items-center gap-3 hover:gradient-magenta-purple hover:border-transparent transition-all group">
-              <div className="bg-primary/20 group-hover:bg-white/20 rounded-full p-3 transition-colors">
-                <Globe className="h-7 w-7 text-primary group-hover:text-white transition-colors" />
-              </div>
-              <span className="text-sm font-bold text-white">Roaming</span>
-            </button>
+            <LinkWithScroll to="/roaming" className="block">
+              <button className="w-full bg-white/10 border border-white/20 rounded-2xl p-6 flex flex-col items-center gap-3 hover:gradient-magenta-purple hover:border-transparent transition-all group">
+                <div className="bg-primary/20 group-hover:bg-white/20 rounded-full p-3 transition-colors">
+                  <Globe className="h-7 w-7 text-primary group-hover:text-white transition-colors" />
+                </div>
+                <span className="text-sm font-bold text-white">Roaming</span>
+              </button>
+            </LinkWithScroll>
             <LinkWithScroll to="/billing/invoice" className="block">
               <button className="w-full bg-white/10 border border-white/20 rounded-2xl p-6 flex flex-col items-center gap-3 hover:gradient-magenta-purple hover:border-transparent transition-all group">
                 <div className="bg-primary/20 group-hover:bg-white/20 rounded-full p-3 transition-colors">
