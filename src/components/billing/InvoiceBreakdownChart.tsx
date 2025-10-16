@@ -237,25 +237,25 @@ export function InvoiceBreakdownChart({ items, total }: InvoiceBreakdownChartPro
           </svg>
 
           {/* Valor total no centro com design moderno */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
-            <div className="text-center bg-black/20 backdrop-blur-sm rounded-full px-4 py-3 border border-white/10"> {/* Reduzido padding de px-6 py-4 para px-4 py-3 */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <div className="text-center px-4 py-3"> {/* Removido fundo transparente e borda */}
               {hoveredIndex !== null ? (
                 <>
-                  <p className="text-xs text-white/70 font-medium uppercase tracking-wider mb-1">
+                  <p className="text-xs text-gray-700 font-medium uppercase tracking-wider mb-1">
                     {segments[hoveredIndex].name}
                   </p>
-                  <p className="text-2xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent"> {/* Reduzido de text-3xl para text-2xl */}
+                  <p className="text-2xl font-bold text-gray-800"> {/* Alterado para cinza escuro */}
                     <span className="font-sans">{segments[hoveredIndex].percentage.toFixed(1)}%</span>
                   </p>
-                  <p className="text-sm text-white/60 font-mono mt-1">
+                  <p className="text-sm text-gray-700 font-mono mt-1">
                     CHF {segments[hoveredIndex].amount.toFixed(2)}
                   </p>
                 </>
               ) : (
                 <>
-                  <p className="text-xs text-white/70 font-medium uppercase tracking-wider mb-1">Total Invoice</p>
-                  <p className="text-2xl font-bold bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent"> {/* Reduzido de text-3xl para text-2xl */}
-                    <span className="font-sans text-lg">CHF </span> {/* Reduzido de text-xl para text-lg */}
+                  <p className="text-xs text-gray-700 font-medium uppercase tracking-wider mb-1">Total Invoice</p>
+                  <p className="text-2xl font-bold text-gray-800"> {/* Alterado para cinza escuro */}
+                    <span className="font-sans text-lg">CHF </span>
                     <span className="font-mono">{total.toFixed(2)}</span>
                   </p>
                 </>
