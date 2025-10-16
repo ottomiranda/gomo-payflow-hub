@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { LinkWithScroll } from "@/components/ui/link-with-scroll";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -31,7 +32,15 @@ interface FamilyMember {
 export function HomePage() {
   const { setDrawerOpen } = useNavigation();
   const [activeTab, setActiveTab] = useState<UsageTab>('mobileData');
-  const [emblaRef] = useEmblaCarousel({ loop: false, align: 'start' });
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' });
+
+  // Função para trocar de tab e resetar o carousel para o primeiro slide
+  const handleTabChange = (tab: UsageTab) => {
+    setActiveTab(tab);
+    if (emblaApi) {
+      emblaApi.scrollTo(0);
+    }
+  };
   
   // Mock data
   const userData = {
@@ -39,10 +48,10 @@ export function HomePage() {
     dataUsed: 12.5,
     dataTotal: 20,
     currentBalance: 25.90,
-    dueDate: "15 Nov 2025",
-    planName: "GoMo Europe",
-    planPrice: 19.95,
-    renewalDate: "1 Dec 2025",
+    dueDate: "31 October 2025",
+    planName: "GoMo Family",
+    planPrice: 25,
+    renewalDate: "31 October 2025",
     hasAlert: true
   };
 
@@ -104,7 +113,7 @@ export function HomePage() {
     const totalDisplay = activeTab === 'mobileData' ? data.total : data.total.toLocaleString();
     
     return (
-      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 space-y-4 min-w-[280px]">
+      <div className="bg-white/10 backdrop-blur-sm rounded-xl p-5 space-y-4 min-w-[280px] shrink-0">
         <div className="flex items-center gap-3">
           <div className="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center text-lg font-bold">
             {member.name.charAt(0)}
@@ -136,7 +145,7 @@ export function HomePage() {
   return (
     <div className="min-h-screen bg-gomo-dark pb-20">
       {/* Header */}
-      <header className="gradient-magenta-purple text-white py-8 px-6">
+        <header className="gradient-purple text-white py-8 px-6">
         <div className="max-w-md mx-auto flex items-center justify-between">
           <div>
             <p className="text-sm opacity-90">Welcome back</p>
@@ -179,59 +188,25 @@ export function HomePage() {
           <h2 className="text-xl font-extrabold mb-6">Current Bill</h2>
           <div className="space-y-5">
             <div>
-              <p className="text-5xl font-bold text-white mb-2">CHF {userData.currentBalance}</p>
+              <p className="text-5xl mb-2">
+                <span className="font-sans text-white">CHF </span>
+                <span className="font-rounded font-extrabold text-white">{userData.currentBalance}</span>
+              </p>
               <p className="text-base text-white/80 mb-3 font-medium">Due on {userData.dueDate}</p>
-              <div className="inline-block px-5 py-2 bg-[hsl(45,100%,51%)] text-black rounded-full text-sm font-extrabold">
-                Due Soon
-              </div>
+              
             </div>
             <div className="flex gap-3">
-              <Link to="/billing" className="flex-1">
-                <button className="w-full bg-[hsl(45,100%,51%)] hover:bg-[hsl(45,100%,46%)] text-black font-bold py-3 px-6 rounded-lg transition-colors">
+              <LinkWithScroll to="/billing" className="flex-1">
+                <button className="w-full border border-white bg-accent hover:bg-accent/90 text-gomo-purple font-bold py-3 px-6 rounded-full transition-colors">
                   Pay Now
                 </button>
-              </Link>
-              <Link to="/billing/invoice">
-                <button className="border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-6 rounded-lg transition-colors">
+              </LinkWithScroll>
+              <LinkWithScroll to="/billing/invoice">
+                <button className="border border-white text-white hover:bg-white/10 font-bold py-3 px-6 rounded-full transition-colors">
                   View Details
                 </button>
-              </Link>
+              </LinkWithScroll>
             </div>
-          </div>
-        </div>
-
-        {/* Quick Actions */}
-        <div>
-          <h2 className="text-xl font-extrabold mb-4 text-white px-1">Quick Actions</h2>
-          <div className="grid grid-cols-2 gap-4">
-            <Link to="/billing" className="block">
-              <button className="w-full bg-white/10 border border-white/20 rounded-2xl p-6 flex flex-col items-center gap-3 hover:gradient-magenta-purple hover:border-transparent transition-all group">
-                <div className="bg-primary/20 group-hover:bg-white/20 rounded-full p-3 transition-colors">
-                  <CreditCard className="h-7 w-7 text-primary group-hover:text-white transition-colors" />
-                </div>
-                <span className="text-sm font-bold text-white">Pay Bill</span>
-              </button>
-            </Link>
-            <button className="w-full bg-white/10 border border-white/20 rounded-2xl p-6 flex flex-col items-center gap-3 hover:gradient-magenta-purple hover:border-transparent transition-all group">
-              <div className="bg-primary/20 group-hover:bg-white/20 rounded-full p-3 transition-colors">
-                <Globe className="h-7 w-7 text-primary group-hover:text-white transition-colors" />
-              </div>
-              <span className="text-sm font-bold text-white">Roaming</span>
-            </button>
-            <Link to="/billing/invoice" className="block">
-              <button className="w-full bg-white/10 border border-white/20 rounded-2xl p-6 flex flex-col items-center gap-3 hover:gradient-magenta-purple hover:border-transparent transition-all group">
-                <div className="bg-primary/20 group-hover:bg-white/20 rounded-full p-3 transition-colors">
-                  <FileText className="h-7 w-7 text-primary group-hover:text-white transition-colors" />
-                </div>
-                <span className="text-sm font-bold text-white">Invoice</span>
-              </button>
-            </Link>
-            <button className="w-full bg-white/10 border border-white/20 rounded-2xl p-6 flex flex-col items-center gap-3 hover:gradient-magenta-purple hover:border-transparent transition-all group">
-              <div className="bg-primary/20 group-hover:bg-white/20 rounded-full p-3 transition-colors">
-                <MessageCircle className="h-7 w-7 text-primary group-hover:text-white transition-colors" />
-              </div>
-              <span className="text-sm font-bold text-white">Support</span>
-            </button>
           </div>
         </div>
 
@@ -241,7 +216,7 @@ export function HomePage() {
           <div className="flex items-center justify-between mb-6">
             <div className="flex gap-4">
               <button
-                onClick={() => setActiveTab('mobileData')}
+                onClick={() => handleTabChange('mobileData')}
                 className={`pb-2 text-sm font-bold transition-all ${
                   activeTab === 'mobileData'
                     ? 'text-white border-b-2 border-white'
@@ -251,7 +226,7 @@ export function HomePage() {
                 Mobile data
               </button>
               <button
-                onClick={() => setActiveTab('text')}
+                onClick={() => handleTabChange('text')}
                 className={`pb-2 text-sm font-bold transition-all ${
                   activeTab === 'text'
                     ? 'text-white border-b-2 border-white'
@@ -261,7 +236,7 @@ export function HomePage() {
                 Text
               </button>
               <button
-                onClick={() => setActiveTab('minutes')}
+                onClick={() => handleTabChange('minutes')}
                 className={`pb-2 text-sm font-bold transition-all ${
                   activeTab === 'minutes'
                     ? 'text-white border-b-2 border-white'
@@ -279,9 +254,10 @@ export function HomePage() {
 
           {/* Carousel */}
           <div className="overflow-hidden" ref={emblaRef}>
-            <div className="flex gap-4">
+            {/* Padrão Embla: container com -ml e cada slide com pl para espaçamento consistente */}
+            <div className="flex -ml-4">
               {familyMembers.map((member) => (
-                <div key={member.id}>
+                <div key={member.id} className="pl-4">
                   {renderUsageContent(member)}
                 </div>
               ))}
@@ -289,20 +265,63 @@ export function HomePage() {
           </div>
         </div>
 
+        {/* Quick Actions */}
+        <div>
+          <h2 className="text-xl font-extrabold mb-4 text-white px-1">Quick Actions</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <LinkWithScroll to="/billing" className="block">
+              <button className="w-full bg-white/10 border border-white/20 rounded-2xl p-6 flex flex-col items-center gap-3 hover:gradient-magenta-purple hover:border-transparent transition-all group">
+                <div className="bg-primary/20 group-hover:bg-white/20 rounded-full p-3 transition-colors">
+                  <CreditCard className="h-7 w-7 text-primary group-hover:text-white transition-colors" />
+                </div>
+                <span className="text-sm font-bold text-white">Pay Bill</span>
+              </button>
+            </LinkWithScroll>
+            <button className="w-full bg-white/10 border border-white/20 rounded-2xl p-6 flex flex-col items-center gap-3 hover:gradient-magenta-purple hover:border-transparent transition-all group">
+              <div className="bg-primary/20 group-hover:bg-white/20 rounded-full p-3 transition-colors">
+                <Globe className="h-7 w-7 text-primary group-hover:text-white transition-colors" />
+              </div>
+              <span className="text-sm font-bold text-white">Roaming</span>
+            </button>
+            <LinkWithScroll to="/billing/invoice" className="block">
+              <button className="w-full bg-white/10 border border-white/20 rounded-2xl p-6 flex flex-col items-center gap-3 hover:gradient-magenta-purple hover:border-transparent transition-all group">
+                <div className="bg-primary/20 group-hover:bg-white/20 rounded-full p-3 transition-colors">
+                  <FileText className="h-7 w-7 text-primary group-hover:text-white transition-colors" />
+                </div>
+                <span className="text-sm font-bold text-white">Invoice</span>
+              </button>
+            </LinkWithScroll>
+            <LinkWithScroll to="/support" className="block">
+              <button className="w-full bg-white/10 border border-white/20 rounded-2xl p-6 flex flex-col items-center gap-3 hover:gradient-magenta-purple hover:border-transparent transition-all group">
+                <div className="bg-primary/20 group-hover:bg-white/20 rounded-full p-3 transition-colors">
+                  <MessageCircle className="h-7 w-7 text-primary group-hover:text-white transition-colors" />
+                </div>
+                <span className="text-sm font-bold text-white">Support</span>
+              </button>
+            </LinkWithScroll>
+          </div>
+        </div>
+
         {/* Plan Info Card */}
         <div className="gradient-gomo-blue rounded-2xl p-6 text-white">
-          <h2 className="text-xl font-extrabold mb-6">Your Plan</h2>
+          <h2 className="text-xl font-extrabold mb-6">Current Plan</h2>
           <div className="space-y-4">
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <p className="font-bold text-xl mb-1 text-white">{userData.planName}</p>
-                <p className="text-sm text-white/80 font-medium">Unlimited data in Europe</p>
+                <p className="text-sm text-white/80 font-medium">3 lines included</p>
               </div>
-              <p className="text-3xl font-extrabold text-[hsl(45,100%,51%)]">CHF {userData.planPrice}</p>
+              <div className="text-right">
+                <p className="text-3xl font-extrabold text-[hsl(45,100%,51%)]">CHF {userData.planPrice}</p>
+                <p className="text-sm text-white/80 font-medium">/month</p>
+              </div>
             </div>
-            <p className="text-sm text-white/80 font-medium">Next renewal: {userData.renewalDate}</p>
-            <button className="w-full border-2 border-white text-white hover:bg-white/10 font-bold py-3 px-6 rounded-lg transition-colors">
-              Modify Plan
+            <div className="space-y-2">
+              <p className="text-sm text-white/80 font-medium">Next billing date</p>
+              <p className="text-base font-semibold text-white">{userData.renewalDate}</p>
+            </div>
+            <button className="w-full border border-white text-white hover:bg-white/10 font-bold py-3 px-6 rounded-full transition-colors">
+              View All Plans
             </button>
           </div>
         </div>

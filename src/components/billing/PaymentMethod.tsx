@@ -18,15 +18,17 @@ export function PaymentMethod() {
   ];
 
   const handleContinue = () => {
+    // Scroll para o topo antes de navegar
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     navigate("/billing/confirm");
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gomo-dark">
       <NavigationDrawer />
       
       {/* Header */}
-      <header className="gradient-purple text-white p-6 sticky top-0 z-10 shadow-md">
+        <header className="gradient-purple text-white p-6 sticky top-0 z-10 shadow-md">
         <div className="max-w-md mx-auto flex items-center gap-4">
           <Link to="/billing">
             <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
@@ -40,22 +42,25 @@ export function PaymentMethod() {
       {/* Main Content */}
       <main className="max-w-md mx-auto px-6 py-6 space-y-6 pb-24">
         {/* Amount Card */}
-        <Card className="border-2 border-primary shadow-elevated">
+        <Card className="bg-white/10 border-white/20 shadow-elevated text-white">
           <CardContent className="p-8">
-            <p className="text-sm text-muted-foreground mb-2">Amount to Pay</p>
-            <p className="text-6xl font-bold text-primary">CHF 25.90</p>
+            <p className="text-sm text-white/80 mb-2">Amount to Pay</p>
+            <p className="text-6xl">
+              <span className="font-sans text-white">CHF </span>
+              <span className="font-extrabold text-accent">25.90</span>
+            </p>
           </CardContent>
         </Card>
 
         {/* Payment Methods */}
         <div className="space-y-5">
-          <h2 className="text-xl font-bold">Select Payment Method</h2>
+          <h2 className="text-xl font-bold text-white">Select Payment Method</h2>
           <RadioGroup value={selectedMethod} onValueChange={setSelectedMethod} className="space-y-4">
             {paymentMethods.map((method) => (
               <Card
                 key={method.id}
-                className={`cursor-pointer transition-all shadow-card hover:shadow-elevated ${
-                  selectedMethod === method.id ? "border-primary border-3 shadow-elevated" : "border-border"
+                className={`cursor-pointer transition-all shadow-card hover:shadow-elevated bg-white/5 hover:bg-white/10 border-white/20 text-white ${
+                  selectedMethod === method.id ? "border-accent" : ""
                 }`}
                 onClick={() => setSelectedMethod(method.id)}
               >
@@ -81,14 +86,14 @@ export function PaymentMethod() {
         </div>
 
         {/* Security Note */}
-        <Card className="bg-muted/30 shadow-card">
+        <Card className="bg-white/5 border-white/20 shadow-card text-white">
           <CardContent className="p-6 flex items-start gap-4">
             <div className="bg-primary/10 rounded-full p-2">
               <Shield className="h-6 w-6 text-primary" />
             </div>
             <div className="flex-1">
-              <p className="font-semibold text-base mb-1">Secure Payment</p>
-              <p className="text-sm text-muted-foreground">
+              <p className="font-semibold text-base mb-1 text-white">Secure Payment</p>
+              <p className="text-sm text-white/80">
                 All transactions are encrypted and secure. Your payment information is never stored on our servers.
               </p>
             </div>

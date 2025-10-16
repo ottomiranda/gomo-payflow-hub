@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { LinkWithScroll } from "@/components/ui/link-with-scroll";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2, FileText } from "lucide-react";
@@ -31,7 +32,7 @@ export function PaymentSuccess() {
   };
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
+    <div className="min-h-screen bg-gomo-dark relative overflow-hidden">
       <NavigationDrawer />
       
       {/* Confetti Effect */}
@@ -60,7 +61,7 @@ export function PaymentSuccess() {
       )}
 
       {/* Header */}
-      <header className="bg-success text-success-foreground p-8 shadow-md relative z-20">
+        <header className="gradient-purple text-white p-8 shadow-md relative z-20">
         <div className="max-w-md mx-auto text-center">
           <h1 className="text-3xl font-bold">Payment Successful</h1>
         </div>
@@ -69,70 +70,76 @@ export function PaymentSuccess() {
       {/* Main Content */}
       <main className="max-w-md mx-auto px-6 py-8 space-y-6 pb-24 relative z-20">
         {/* Success Card */}
-        <Card className="border-2 border-success shadow-elevated">
+        <Card className="bg-white/10 border-white/20 shadow-elevated text-white">
           <CardContent className="p-10 text-center space-y-6">
             <div className="mx-auto w-24 h-24 bg-success rounded-full flex items-center justify-center shadow-lg">
               <CheckCircle2 className="h-14 w-14 text-white" />
             </div>
             <div>
               <h2 className="text-3xl font-bold mb-3">Payment Successful! 🎉</h2>
-              <p className="text-base text-muted-foreground">Your payment has been processed successfully</p>
+              <p className="text-base text-white/80">Your payment has been processed successfully</p>
             </div>
             <div className="pt-4">
-              <p className="text-sm text-muted-foreground mb-2">Amount Paid</p>
-              <p className="text-6xl font-bold text-success">CHF {transactionData.amount}</p>
+              <p className="text-sm text-white/80 mb-2">Amount Paid</p>
+              <p className="text-6xl">
+                <span className="font-sans text-white">CHF </span>
+                <span className="font-rounded font-extrabold text-success">{transactionData.amount}</span>
+              </p>
             </div>
           </CardContent>
         </Card>
 
         {/* Transaction Details */}
-        <Card className="shadow-elevated">
+        <Card className="bg-white/10 border-white/20 shadow-elevated text-white">
           <CardHeader>
             <CardTitle className="text-xl font-bold">Transaction Details</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex justify-between py-2">
-              <span className="text-sm text-muted-foreground">Transaction ID</span>
+              <span className="text-sm text-white/80">Transaction ID</span>
               <span className="font-semibold text-base">{transactionData.transactionId}</span>
             </div>
             <div className="flex justify-between py-2 border-t">
-              <span className="text-sm text-muted-foreground">Date</span>
+              <span className="text-sm text-white/80">Date</span>
               <span className="font-semibold text-base">{transactionData.date}</span>
             </div>
             <div className="flex justify-between py-2 border-t">
-              <span className="text-sm text-muted-foreground">Time</span>
+              <span className="text-sm text-white/80">Time</span>
               <span className="font-semibold text-base">{transactionData.time}</span>
             </div>
             <div className="flex justify-between py-2 border-t">
-              <span className="text-sm text-muted-foreground">Payment Method</span>
+              <span className="text-sm text-white/80">Payment Method</span>
               <span className="font-semibold text-base">{transactionData.method}</span>
             </div>
             <div className="flex justify-between py-2 border-t">
-              <span className="text-sm text-muted-foreground">Status</span>
+              <span className="text-sm text-white/80">Status</span>
               <span className="font-bold text-base text-success">{transactionData.status}</span>
             </div>
             <div className="flex justify-between py-3 pt-4 border-t-2">
-              <span className="text-sm text-muted-foreground">Receipt sent to</span>
+              <span className="text-sm text-white/80">Receipt sent to</span>
               <span className="font-semibold text-base">{transactionData.email}</span>
             </div>
           </CardContent>
         </Card>
 
         {/* Updated Balance */}
-        <Card className="bg-muted/30 shadow-card">
+        <Card className="bg-white/5 border-white/20 shadow-card text-white">
           <CardContent className="p-8 text-center">
-            <p className="text-base text-muted-foreground mb-3">Updated Balance</p>
-            <p className="text-5xl font-bold text-foreground mb-3">CHF 0.00</p>
+            <p className="text-base text-white/80 mb-3">Updated Balance</p>
+            <p className="text-5xl mb-3">
+              <span className="font-sans text-white">CHF </span>
+              <span className="font-rounded font-extrabold text-white">0.00</span>
+            </p>
             <p className="text-base text-success font-semibold">All caught up! 🎊</p>
           </CardContent>
         </Card>
 
         {/* Action Buttons */}
         <div className="space-y-4 pt-4">
-          <Link to="/" className="block">
+          <LinkWithScroll to="/" className="block">
             <Button className="w-full" variant="default" size="lg">Back to Home</Button>
-          </Link>
-          <Button variant="outline" className="w-full" size="lg">
+          </LinkWithScroll>
+          <Button variant="outline" className="w-full bg-white/5 border-white/20 text-white hover:bg-white/10" size="lg">
             <FileText className="h-5 w-5 mr-2" />
             Download Receipt
           </Button>

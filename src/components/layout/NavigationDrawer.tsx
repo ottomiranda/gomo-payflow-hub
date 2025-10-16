@@ -49,7 +49,7 @@ export const NavigationDrawer = () => {
     <Sheet open={drawerOpen} onOpenChange={setDrawerOpen}>
       <SheetContent side="left" className="w-80 bg-[#1A1A1A] border-white/10 p-0">
         {/* Header with gradient */}
-        <SheetHeader className="gradient-magenta-purple p-6 space-y-4">
+        <SheetHeader className="gradient-purple p-6 space-y-4">
           <div className="flex items-center gap-4">
             <Avatar className="h-14 w-14">
               <AvatarFallback className="bg-white/20 text-white text-lg font-bold">

@@ -1,10 +1,19 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { ChevronLeft, Smartphone, MessageSquare, Phone, Globe } from "lucide-react";
 import { BottomNavbar } from "@/components/layout/BottomNavbar";
 import { NavigationDrawer } from "@/components/layout/NavigationDrawer";
+
+// Custom Progress component with yellow bar and white transparent background
+const CustomProgress = ({ value }: { value: number }) => (
+  <div className="relative h-4 w-full overflow-hidden rounded-full bg-white/50">
+    <div 
+      className="h-full bg-yellow-400 transition-all duration-300 ease-out rounded-full"
+      style={{ width: `${value}%` }}
+    />
+  </div>
+);
 
 const Usage = () => {
   const usageData = [
@@ -33,7 +42,7 @@ const Usage = () => {
       <NavigationDrawer />
       
       {/* Header */}
-      <header className="gradient-magenta text-white p-6 sticky top-0 z-10 shadow-md">
+        <header className="gradient-purple text-white p-6 sticky top-0 z-10 shadow-md">
         <div className="max-w-md mx-auto flex items-center gap-4">
           <Link to="/">
             <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
@@ -72,7 +81,7 @@ const Usage = () => {
                     {member.mobileData.used} / {member.mobileData.total} {member.mobileData.unit}
                   </span>
                 </div>
-                <Progress value={(member.mobileData.used / member.mobileData.total) * 100} />
+                <CustomProgress value={(member.mobileData.used / member.mobileData.total) * 100} />
               </div>
 
               {/* Text Messages */}
@@ -86,7 +95,7 @@ const Usage = () => {
                     {member.text.used} / {member.text.total} {member.text.unit}
                   </span>
                 </div>
-                <Progress value={(member.text.used / member.text.total) * 100} />
+                <CustomProgress value={(member.text.used / member.text.total) * 100} />
               </div>
 
               {/* Minutes */}
@@ -100,7 +109,7 @@ const Usage = () => {
                     {member.minutes.used} / {member.minutes.total} {member.minutes.unit}
                   </span>
                 </div>
-                <Progress value={(member.minutes.used / member.minutes.total) * 100} />
+                <CustomProgress value={(member.minutes.used / member.minutes.total) * 100} />
               </div>
             </CardContent>
           </Card>

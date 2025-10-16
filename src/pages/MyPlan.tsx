@@ -24,7 +24,7 @@ const MyPlan = () => {
       <NavigationDrawer />
       
       {/* Header */}
-      <header className="gradient-blue text-white p-6 sticky top-0 z-10 shadow-md">
+        <header className="gradient-purple text-white p-6 sticky top-0 z-10 shadow-md">
         <div className="max-w-md mx-auto flex items-center gap-4">
           <Link to="/">
             <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
@@ -47,7 +47,10 @@ const MyPlan = () => {
                 <p className="text-white/90">3 lines included</p>
               </div>
               <div className="text-right">
-                <p className="text-5xl font-bold">CHF 25</p>
+                <p className="text-6xl">
+                  <span className="font-sans text-white">CHF </span>
+                  <span className="font-rounded font-extrabold">25</span>
+                </p>
                 <p className="text-white/80 text-sm">/month</p>
               </div>
             </div>

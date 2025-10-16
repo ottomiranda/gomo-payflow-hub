@@ -1,25 +1,27 @@
 import { Link } from "react-router-dom";
+import { LinkWithScroll } from "@/components/ui/link-with-scroll";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChevronLeft } from "lucide-react";
 import { BottomNavbar } from "@/components/layout/BottomNavbar";
 import { NavigationDrawer } from "@/components/layout/NavigationDrawer";
+import { AutoPayCard } from "@/components/billing/AutoPayCard";
 
 export function BillingSummary() {
   const billData = {
     amount: 25.90,
-    dueDate: "15 Nov 2025",
+    dueDate: "31 Oct 2025",
     status: "unpaid" as const,
     autoPayEnabled: false,
     invoiceMonth: "October 2025"
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gomo-dark">
       <NavigationDrawer />
       
       {/* Header */}
-      <header className="gradient-purple text-white p-6 sticky top-0 z-10 shadow-md">
+        <header className="gradient-purple text-white p-6 sticky top-0 z-10 shadow-md">
         <div className="max-w-md mx-auto flex items-center gap-4">
           <Link to="/">
             <Button variant="ghost" size="icon" className="text-white hover:bg-white/20">
@@ -33,56 +35,45 @@ export function BillingSummary() {
       {/* Main Content */}
       <main className="max-w-md mx-auto px-6 py-6 space-y-6 pb-24">
         {/* Amount Due Card */}
-        <Card className="border-2 border-primary shadow-elevated hover:shadow-hover transition-all">
+        <Card className="bg-white/10 border-white/20 shadow-elevated text-white">
           <CardContent className="p-8 space-y-6">
             <div>
-              <p className="text-sm text-muted-foreground mb-2">Amount Due</p>
-              <p className="text-6xl font-bold text-primary mb-2">CHF {billData.amount}</p>
+              <p className="text-sm text-white/80 mb-2">Amount Due</p>
+              <p className="text-6xl mb-2">
+                <span className="font-sans text-white">CHF </span>
+                <span className="font-rounded font-extrabold text-accent">{billData.amount}</span>
+              </p>
             </div>
-            <div className="flex items-center justify-between py-3 border-t border-border">
+            <div className="flex items-center justify-between py-3 border-t border-white/20">
               <div>
                 <p className="text-base font-semibold mb-2">Payment Status</p>
-                <div className="inline-block px-4 py-1.5 bg-warning text-accent-foreground rounded-full text-sm font-bold">
+                <div className="inline-block px-4 py-1.5 bg-white/10 text-white rounded-full text-sm font-bold">
                   Unpaid
                 </div>
               </div>
               <div className="text-right">
                 <p className="text-base font-semibold mb-1">Due Date</p>
-                <p className="text-base text-muted-foreground">{billData.dueDate}</p>
+                <p className="text-base text-white/80">{billData.dueDate}</p>
               </div>
             </div>
             <div className="flex gap-4 pt-2">
-              <Link to="/billing/payment-method" className="flex-1">
+              <LinkWithScroll to="/billing/payment-method" className="flex-1">
                 <Button className="w-full" variant="accent" size="lg">Pay Now</Button>
-              </Link>
-              <Link to="/billing/invoice">
-                <Button variant="outline" size="lg">View Details</Button>
-              </Link>
+              </LinkWithScroll>
+              <LinkWithScroll to="/billing/invoice">
+                <Button variant="outline" size="lg" className="bg-white/5 border-white/20 text-white hover:bg-white/10">View Details</Button>
+              </LinkWithScroll>
             </div>
           </CardContent>
         </Card>
 
         {/* Auto-Pay Status */}
-        <Card className="shadow-elevated">
-          <CardHeader>
-            <CardTitle className="text-xl font-bold">Auto-Pay</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center justify-between py-3">
-              <div className="flex-1">
-                <p className="font-semibold text-base mb-1">Automatic Payments</p>
-                <p className="text-sm text-muted-foreground">Currently inactive</p>
-              </div>
-              <div className="px-4 py-2 bg-muted text-muted-foreground rounded-full text-sm font-semibold">Off</div>
-            </div>
-            <Button variant="default" className="w-full" size="lg">Enable Auto-Pay</Button>
-          </CardContent>
-        </Card>
+        <AutoPayCard />
 
         {/* Recent Payments */}
-        <Card className="shadow-elevated">
+        <Card className="bg-white/10 border-white/20 shadow-elevated text-white">
           <CardHeader>
-            <CardTitle className="text-xl font-bold">Recent Payments</CardTitle>
+            <CardTitle className="text-xl font-bold text-white">Recent Payments</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-1">
@@ -90,13 +81,13 @@ export function BillingSummary() {
                 { date: "Sep 2025", fullDate: "Paid on 1 Oct 2025", amount: 19.95, method: "Visa" },
                 { date: "Aug 2025", fullDate: "Paid on 1 Sep 2025", amount: 19.95, method: "TWINT" },
               ].map((payment, index) => (
-                <div key={index} className="flex items-center justify-between py-4 border-b last:border-0">
+                <div key={index} className="flex items-center justify-between py-4 border-b border-white/10 last:border-0">
                   <div>
-                    <p className="font-semibold text-base">{payment.date}</p>
-                    <p className="text-sm text-muted-foreground">{payment.fullDate}</p>
+                    <p className="font-semibold text-base text-white">{payment.date}</p>
+                    <p className="text-sm text-white/80">{payment.fullDate}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-lg">CHF {payment.amount}</p>
+                    <p className="font-bold text-lg text-white">CHF {payment.amount}</p>
                     <p className="text-sm text-success font-medium">Paid ({payment.method})</p>
                   </div>
                 </div>
